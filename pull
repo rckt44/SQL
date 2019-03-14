@@ -1,0 +1,18 @@
+proc sql;
+connect to teradata (user=userid password=pwd tdpid=dbname);
+%put teradata return code :&sqlxrc / &sqlxmsg;
+create table test as 
+select * from connection to teradata
+(SELECT
+CAST(A.U_ID AS FLOAT),
+CAST(A.ENROLL_TS AS DATE) AS ENROLL_DT,
+B.V_VAR
+B.C_ID,
+(CASE WHEN U_STATUS IN ('INACT','UNKNWN','SUSP','DISAB') THEN 1 ELSE 0 END) AS UN_ENROL_CD
+FROM TABLE_ONE A
+JOIN
+TABLE_TWO B
+ON
+A.VAR_UNIQ=B.VAR_UNIQ
+WHERE CAST(A.ENROLL_TS AS DATE) IN "09JAN2012"D);
+QUIT;
